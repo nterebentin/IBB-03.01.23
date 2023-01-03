@@ -11,6 +11,9 @@ namespace ConsoleApp7
     }
     class DataTable: IEnumerable<DataRow>, IEnumerator<DataRow>
     {
+
+        public int ColumnsCount { get; set; }
+
         List<DataRow> rows = new List<DataRow>();
 
         public DataRow Current => rows[index];
@@ -51,7 +54,17 @@ namespace ConsoleApp7
     }
     class DataRow :IEnumerable, IEnumerator
     {
-        List<object> values = new List<object>();
+
+        List<object> values;
+        public DataRow(int colCount)
+        {
+            values = new List<object>(colCount);
+        }
+      
+        public void AddValue(int columnIndex, object o)
+        {
+            values[columnIndex] = o;
+        }
         public object this[int i]
         {
             get { return values[i]; }
